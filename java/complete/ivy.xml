@@ -1,0 +1,47 @@
+<ivy-module version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	<info organisation="org.apache.ivy" module="ivy" revision="2.1.0" status="release" publication="20090925235825">
+		<description homepage="http://ant.apache.org/ivy/">
+		Apache Ivy is a tool for managing (recording, tracking, resolving and reporting) project dependencies.
+		</description>
+	</info>
+	<configurations>
+		<conf name="core" description="only ivy jar, without any dependencies"/>
+		<conf name="httpclient" extends="core" description="core + optional httpclient for better http handling"/>
+		<conf name="oro" extends="core" description="to use optional glob matcher"/>
+		<conf name="vfs" extends="core" description="core + optional VirtualFileSystem(VFS) support"/>
+		<conf name="sftp" extends="core" description="core + optional SFTP support"/>
+		<conf name="standalone" extends="core" description="to launch in standalone mode (from command line)"/>
+		<conf name="ant" extends="core" description="core + ant jar provided as a dependency"/>
+		<conf name="default" extends="core" description="full ivy with all dependencies"/>
+		<conf name="test" description="dependencies used for junit testing ivy" visibility="private"/>
+		<conf name="source" description="ivy sources"/>
+	</configurations>
+	<publications>
+		<artifact name="ivy" type="jar" conf="core"/>
+		<artifact name="ivy" type="source" ext="jar" conf="source"/>
+	</publications>
+	<dependencies>
+	    <dependency org="ant" name="ant" rev="1.6.2" conf="default,ant->default"/>
+	    <dependency org="ant" name="ant-nodeps" rev="1.6.2" conf="default"/>
+	    <dependency org="ant" name="ant-trax" rev="1.6.2" conf="default"/>
+		<dependency org="commons-httpclient" name="commons-httpclient" rev="3.0" conf="default,httpclient->runtime,master"/>
+		<dependency org="oro" name="oro" rev="2.0.8" conf="default,oro->default"/>
+		<dependency org="commons-vfs" name="commons-vfs" rev="1.0" conf="default,vfs->default"/>
+		<dependency org="com.jcraft" name="jsch" rev="0.1.31" conf="default,sftp->default"/>
+
+		<!-- Test dependencies -->
+		<dependency org="junit" name="junit" rev="3.8.2" conf="test->default"/>
+		<dependency org="commons-lang" name="commons-lang" rev="2.4" revConstraint="[1.0,3.0[" conf="test->default"/>
+		<dependency org="org.apache.ant" name="ant-testutil" rev="1.7.0" conf="test->default" transitive="false"/>
+	    <dependency org="ant" name="ant-launcher" rev="1.6.2" conf="test->default" transitive="false"/>
+		
+		<!-- This dependency is necessary for having validation in junit tests when running with JDK1.4 -->
+		<dependency org="xerces" name="xercesImpl" rev="2.6.2" conf="test->default"/>
+		<dependency org="xerces" name="xmlParserAPIs" rev="2.6.2" conf="test->default"/>
+		<dependency org="org.apache.httpcomponents" name="httpclient" rev="4.0.1"/>
+		<dependency org="com.google.code.gson" name="gson" rev="1.4"></dependency>
+		<!-- Global exclude for junit -->
+		<exclude org="junit" module="junit" conf="core,default,httpclient,oro,vfs,sftp,standalone,ant"/>
+		
+	</dependencies>
+</ivy-module>

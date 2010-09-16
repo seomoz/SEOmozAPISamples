@@ -1,0 +1,95 @@
+<project name="Seomoz" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+	<description>
+        Seomoz build file
+    </description>
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+	<property name="lib" location="lib" />
+	<property name="docs" location="docs" />
+
+	<path id="classpath.lib">
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init" depends="retrieve-all">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source ">
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}">
+			<classpath refid="classpath.lib" />
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib" />
+
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/lib/seomoz-${DSTAMP}.jar" basedir="${build}" />
+	</target>
+
+	<target name="javadoc" depends="compile" description="generate the javadoc">
+		<javadoc destdir="${docs}" author="true" version="true" use="true" windowtitle="Seomoz API">
+
+			<fileset dir="src" defaultexcludes="yes">
+				<include name="com/seomoz/api/**" />
+			</fileset>
+
+			<doctitle><![CDATA[<h1>Seomoz API</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2010 Seomoz. All Rights Reserved.</i>]]></bottom>
+			<tag name="todo" scope="all" description="To do:" />
+			<group title="Authentication" packages="com.seomoz.api.authentication*" />
+			<group title="Example" packages="com.seomoz.api.example*" />
+			<group title="Service" packages="com.seomoz.api.service*" />
+			<group title="Util" packages="com.seomoz.api.util*" />
+			<group title="Response" packages="com.seomoz.api.response*" />
+		</javadoc>
+	</target>
+
+	<target name="run" depends="dist,javadoc" description="run the sample ">
+		<java classname="com.seomoz.api.example.Sample" fork="true">
+			<classpath>
+				<pathelement location="${dist}/lib/seomoz-${DSTAMP}.jar" />
+				<path refid="classpath.lib" />
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="${docs}" />
+	</target>
+	
+	<target name="init-ivy">
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant">
+			<classpath>
+				<pathelement location="${lib}/ivy-2.1.0.jar" />
+			</classpath>
+		</taskdef>
+	</target>
+	
+	<target name="retrieve-conf" depends="init-ivy" description="--> Retrieves a set of configuration (get only dependencies needed).">
+		<ivy:info file="ivy.xml" />
+		<echo>
+					=======================================================================
+					Please enter configuration (or comma separated list of configurations).
+					Available configurations are: ${ivy.configurations}</echo>
+		<input message="Configuration(s):" addproperty="ivy.confs" />
+		<ivy:retrieve conf="${ivy.confs}" />
+	</target>
+	
+	<target name="retrieve-all" depends="init-ivy" description="--> Retrieves all Ivy dependencies into the lib directory">
+		<ivy:retrieve />
+	</target>
+</project>
