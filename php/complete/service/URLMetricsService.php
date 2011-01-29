@@ -30,7 +30,7 @@ class URLMetricsService
 	public function getUrlMetrics($objectURL, $col = 0)
 	{
 		
-		$urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" . urlencode($objectURL) . "?" . Authenticator::getInstance()->getAuthenticationStr();
+		$urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" . urlencode($objectURL) . "?" . $this->authenticator->getAuthenticationStr();
 		
 		if($col > 0)
 		{
