@@ -1,7 +1,4 @@
 <?php
-include_once 'authentication/Authenticator.php';
-include_once 'util/ConnectionUtil.php';
-
 /**
  * Service class to call the various methods to
  * Top Pages Api
