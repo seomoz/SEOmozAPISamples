@@ -1,6 +1,5 @@
 <?php
 	
-	$seomz_lib_path = "..";
 	$objectURL = "www.seomoz.org";
 	
 	//Add your accessID here
@@ -9,16 +8,8 @@
 	//Add your secretKey here
 	$SecretKey = '';
 	
-	set_include_path($seomz_lib_path . PATH_SEPARATOR . get_include_path());
-	
-	include_once 'authentication/Authenticator.php';
-	include_once 'service/AnchorTextService.php';
-	include_once 'service/URLMetricsService.php';
-	include_once 'service/LinksService.php';
-	include_once 'service/TopPagesService.php';
-	include_once 'constants/AnchorTextConstants.php';
-	include_once 'constants/LinksConstants.php';
-	include_once 'constants/TopPagesconstants.php';
+
+    include '../bootstrap.php';
 	
 	$authenticator = new Authenticator();
 	$authenticator->setAccessID($AccessID);
