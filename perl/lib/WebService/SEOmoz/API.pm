@@ -21,6 +21,17 @@ use JSON::Any;
         secretKey  => $secretKey,
         expiresInterval => $expiresInterval, # optional, default 300s
     );
+    
+    my $t = $seomoz->getUrlMetrics( {
+        objectURL => 'www.seomoz.org/blog',
+    } );
+    
+    $t = $seomoz->getLinks( {
+        objectURL => 'www.google.com',
+        Scope => 'page_to_page',
+        Sort  => 'page_authority',
+        Limit => 1,
+    } );
 
 =head1 DESCRIPTION
 
@@ -106,6 +117,34 @@ sub makeRequest {
 
 =pod
 
+=head3 getUrlMetrics
+
+    my $t = $seomoz->getUrlMetrics( {
+        objectURL => 'www.seomoz.org/blog',
+    } );
+
+L<http://apiwiki.seomoz.org/w/page/13991153/URL-Metrics-API>
+
+=cut
+
+sub getUrlMetrics {
+    my $self = shift;
+    my $args = scalar @_ % 2 ? shift : { @_ };
+    
+    my $objectURL = $args->{objectURL} or croak 'objectURL is required';
+    my $urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
+    
+    foreach my $k ('Cols') {
+        if (defined $args->{$k}) {
+			$urlToFetch .= "&" . "$k=" . $args->{$k};
+		}
+    }
+
+    return $self->makeRequest($urlToFetch);
+}
+
+=pod
+
 =head3 getLinks
 
     my $t = $seomoz->getLinks( {
@@ -131,7 +170,40 @@ sub getLinks {
     
     foreach my $k ('Scope', 'Filter', 'Sort', 'SourceCols', 'TargetCols', 'LinkCols', 'Offset', 'Limit') {
         if (defined $args->{$k}) {
-			$urlToFetch = $urlToFetch . "&Scope=" . $args->{$k};
+			$urlToFetch .= "&" . "$k=" . $args->{$k};
+		}
+    }
+
+    return $self->makeRequest($urlToFetch);
+}
+
+=pod
+
+=head3 getAnchorText
+
+    my $t = $seomoz->getAnchorText( {
+        objectURL => 'www.google.com',
+        Scope => 'page_to_page',
+        Sort => 'page_authority',
+        Cols => 536870916,
+        Offset => 4,
+        Limit => 1,
+    } );
+
+L<http://apiwiki.seomoz.org/w/page/13991127/Anchor-Text-API>
+
+=cut
+
+sub getAnchorText {
+    my $self = shift;
+    my $args = scalar @_ % 2 ? shift : { @_ };
+    
+    my $objectURL = $args->{objectURL} or croak 'objectURL is required';
+    my $urlToFetch = "http://lsapi.seomoz.com/linkscape/anchor-text/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
+    
+    foreach my $k ('Scope', 'Sort', 'Cols', 'Offset', 'Limit') {
+        if (defined $args->{$k}) {
+			$urlToFetch .= "&" . "$k=" . $args->{$k};
 		}
     }
 

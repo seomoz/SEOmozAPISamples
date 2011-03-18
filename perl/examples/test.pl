@@ -12,12 +12,17 @@ my $seomoz = WebService::SEOmoz::API->new(
     secretKey  => $ENV{SEOmoz_KEY},
 );
 
-my $t = $seomoz->getLinks( {
+my $t = $seomoz->getUrlMetrics( {
+    objectURL => 'www.seomoz.org/blog',
+} );
+print Dumper(\$t);
+
+$t = $seomoz->getLinks( {
     objectURL => 'www.google.com',
     Scope => 'page_to_page',
+    Sort  => 'page_authority',
     Limit => 1,
 } );
-
 print Dumper(\$t);
 
 1;
