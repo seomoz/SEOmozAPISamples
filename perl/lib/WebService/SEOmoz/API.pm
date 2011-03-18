@@ -76,6 +76,10 @@ sub new {
     
     $args->{expiresInterval} ||= 300;
     
+    # we won't have space before/after accessID/secretKey
+    $args->{accessID} =~ s/(^\s+|\s+$)//g;
+    $args->{secretKey} =~ s/(^\s+|\s+$)//g;
+    
     unless ( $args->{ua} ) {
         my $ua_args = delete $args->{ua_args} || { timeout => 120 };
         $args->{ua} = LWP::UserAgent->new(%$ua_args);
