@@ -1,4 +1,7 @@
 Revision history for Perl extension WebService-SEOmoz-API
 
+0.02    2011.03.20
+        errstr when request HTTP error
+
 0.01    2011.03.19
         a start
