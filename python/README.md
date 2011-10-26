@@ -57,3 +57,4 @@ returns a set of links to a page or domain.
 	links = l.links('www.seomoz.org')
 	# The links API has more columns to specify, as well as sort, scope, etc.
 	links = l.links('www.seomoz.org', scope='domain_to_domain', sort='domain_authority',
+		filters=['external', 'nofollow'], targetCols = lsapi.UMCols.url)
