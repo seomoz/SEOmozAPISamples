@@ -1,6 +1,3 @@
-# Signed Authentication has been deprecated.
-# Please check out the authentication wiki page: http://apiwiki.seomoz.org/HttpBasicAuth
-
 import sha
 import hmac
 import time
@@ -171,17 +168,28 @@ class lsapi:
 		request = lsapi.base % (method.encode('utf-8'), urllib.urlencode(params))
 		try:
 			return json.loads(urllib2.urlopen(request, data).read())
+		except urllib2.HTTPError as e:
+			# The unauthorized status code can sometimes have meaningful data
+			if e.code == 401:
+				raise lsapiException(e.read())
+			else:
+				raise lsapiException(e)
 		except Exception as e:
 			raise lsapiException(e)
 	
 	def urlMetrics(self, urls, cols=UMCols.freeCols):
-		return self.query('url-metrics', data=json.dumps(urls), Cols=cols)
+		if isinstance(urls, basestring):
+			return self.query('url-metrics/%s' % urllib.quote(urls), Cols=cols)
+		else:
+			return self.query('url-metrics', data=json.dumps(urls), Cols=cols)
 	
 	def anchorText(self, url, scope='phrase_to_page', sort='domains_linking_page', cols=ATCols.freeCols):
 		return self.query('anchor-text/%s' % urllib.quote(url), Scope=scope, Sort=sort, Cols=cols)
 	
-	def links(self, url, scope='page_to_page', sort='domain_authority', filters=['internal'],
-		targetCols=UMCols.freeCols, sourceCols=UMCols.freeCols, linkCols=UMCols.freeCols):
+	def links(self, url, scope='page_to_page', sort='page_authority', filters=['internal'],
+		targetCols=(UMCols.url | UMCols.pageAuthority),
+		sourceCols=(UMCols.url | UMCols.pageAuthority),
+		linkCols  =(UMCols.url | UMCols.pageAuthority)):
 		'''This is currently broken. Have not figured it out'''
 		return self.query('links/%s' % urllib.quote(url),
 			Scope      = scope,
