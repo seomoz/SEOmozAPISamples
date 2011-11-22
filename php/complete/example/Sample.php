@@ -16,7 +16,7 @@
 	$authenticator->setSecretKey($SecretKey);
 	
 	
-	/*$urlMetricsService = new URLMetricsService();
+	/*$urlMetricsService = new URLMetricsService($authenticator);
 	$response = $urlMetricsService->getUrlMetrics($objectURL);
 	var_dump($response);*/
 	
@@ -31,7 +31,7 @@
 	*/
 	
 	/*
-	$topPagesService = new TopPagesService();
+	$topPagesService = new TopPagesService($authenticator);
 	$response = $topPagesService->getTopPages($objectURL, TOPPAGES_COL_ALL, 0, 3);
 	var_dump($response);
 	*/
