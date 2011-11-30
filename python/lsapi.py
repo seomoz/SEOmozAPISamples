@@ -1,4 +1,4 @@
-import sha
+import hashlib
 import hmac
 import time
 import base64
@@ -158,7 +158,7 @@ class lsapi:
 	
 	def signature(self, expires):
 		toSign  = '%s\n%i' % (self.access_id, expires)
-		return base64.b64encode(hmac.new(self.secret_key, toSign, sha).digest())
+		return base64.b64encode(hmac.new(self.secret_key, toSign, hashlib.sha1).digest())
 
 	def query(self, method, data=None, **params):
 		expires = int(time.time() + 300)
