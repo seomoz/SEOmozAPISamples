@@ -22,20 +22,22 @@ class URLMetricsService
 	 * 
 	 * This method returns the metrics about a URL or set of URLs.  
 	 * 
-	 * @param objectURL
-	 * @param col This field filters the data to get only specific columns
-	 * 			  col = 0 fetches all the data
+	 * @param string objectURL
+	 * @param array options
 	 * @return
 	 */
-	public function getUrlMetrics($objectURL, $col = 0)
+	public function getUrlMetrics($objectURL, array $options = array())
 	{
 		
 		$urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" . urlencode($objectURL) . "?" . $this->authenticator->getAuthenticationStr();
-		
-		if($col > 0)
-		{
-			$urlToFetch = $urlToFetch . "&Cols=" . $col;
-		}
+        
+        /**
+         * @param col This field filters the data to get only specific columns
+         *  col = 0 fetches all the data
+         */
+        $options['cols'] = isset($options['cols']) && (int)$options['cols'] > 0 ? (int)$options['cols'] : 0;
+        $urlToFetch .= "&Cols=" . $options['cols'];
+
 		$response = ConnectionUtil::makeRequest($urlToFetch);
 		
 		return $response;

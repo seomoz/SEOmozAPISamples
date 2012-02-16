@@ -20,27 +20,31 @@ class TopPagesService
 	/**
 	 * This method returns the metrics about many URLs on a given subdomain
 	 * 
-	 * @param objectURL
-	 * @param col  A set of metrics can be requested by indicating them as bit flags in the Cols query parameter.
-	 * @param offset The start record of the page can be specified using the Offset parameter
-	 * @param limit The size of the page can by specified using the Limit parameter. 
+	 * @param string objectURL
+	 * @param array $options
 	 * @return
 	 */
-	public function getTopPages($objectURL, $col = 0, $offset = -1, $limit = -1)
+	public function getTopPages($objectURL, array $options = array())
 	{
 		$urlToFetch = "http://lsapi.seomoz.com/linkscape/top-pages/" . urlencode($objectURL) . "?" . $this->authenticator->getAuthenticationStr();
-		if($offset >= 0)
-		{
-			$urlToFetch = $urlToFetch . "&Offset=" . $offset;
-		}
-		if($limit >= 0)
-		{
-			$urlToFetch = $urlToFetch . "&Limit=" . $limit;
-		}
-		if($col > 0)
-		{
-			$urlToFetch = $urlToFetch . "&Cols=" . $col;
-		}
+        
+        /**
+         * @param cols  A set of metrics can be requested by indicating them as bit flags in the Cols query parameter.
+         */
+        $options['cols'] = (isset($options['cols']) && (int)$options['cols'] > 0) ? (int)$options['cols'] : 0;
+        $urlToFetch .= "&Cols=" . $options['cols'];
+        
+        /**
+         * @param offset The start record of the page can be specified using the Offset parameter
+         */
+        $options['offset'] = (isset($options['offset']) && (int)$options['offset'] > 0) ? (int)$options['offset'] : -1;
+        $urlToFetch .= "&Offset=" . $options['offset'];
+        
+        /**
+         * @param limit The size of the page can by specified using the Limit parameter. 
+         */
+        $options['limit'] = (isset($options['limit']) && (int)$options['limit'] > 0) ? (int)$options['limit'] : -1;
+        $urlToFetch .= "&Limit=" . $options['limit'];
 		
 		$response = ConnectionUtil::makeRequest($urlToFetch);
 		
