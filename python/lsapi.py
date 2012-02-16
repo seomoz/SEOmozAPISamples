@@ -194,7 +194,7 @@ class lsapi:
 		return self.query('links/%s' % urllib.quote(url),
 			Scope      = scope,
 			Sort       = sort,
-			Filters    = '+'.join(filters),
+			Filter     = '+'.join(filters),
 			TargetCols = targetCols,
 			SourceCols = sourceCols,
 			linkCols   = linkCols)
