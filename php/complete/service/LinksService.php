@@ -9,16 +9,9 @@
  * @author Radeep Solutions
  *
  */
-class LinksService 
-{
-	private $authenticator;
-	
-	public function __construct($authenticator)
-	{
-		$this->authenticator = $authenticator;		
-	}
-   
-    
+ require_once 'AbstractService.php';
+class LinksService extends AbstractService
+{    
    /**
    * This method returns a set of links to a page or domain.
    *
@@ -29,7 +22,7 @@ class LinksService
    */
    public function getLinks($objectURL, array $options = array())
    {
-      $urlToFetch = "http://lsapi.seomoz.com/linkscape/links/" . urlencode($objectURL) . "?" . $this->authenticator->getAuthenticationStr();
+      $urlToFetch = "http://lsapi.seomoz.com/linkscape/links/" . urlencode($objectURL) . "?" . $this->getAuthenticator()->getAuthenticationStr();
         
       // scope determines the scope of the Target link, as well as the Source results
       if (isset($options['scope'])) {
@@ -73,21 +66,4 @@ class LinksService
         
       return ConnectionUtil::makeRequest($urlToFetch);
    }
-	
-	/**
-	 * @return the $authenticator
-	 */
-	public function getAuthenticator() {
-		return $this->authenticator;
-	}
-
-	/**
-	 * @param $authenticator the $authenticator to set
-	 */
-	public function setAuthenticator($authenticator) {
-		$this->authenticator = $authenticator;
-	}
-	
 }
-
-?>

@@ -9,52 +9,41 @@
  * @author Radeep Solutions
  *
  */
-class URLMetricsService 
-{
-	private $authenticator;
-	
-	public function __construct($authenticator)
-	{
-		$this->authenticator = $authenticator;		
-	}
-	
+require_once 'AbstractService.php';
+class URLMetricsService extends AbstractService
+{	
 	/**
 	 * 
 	 * This method returns the metrics about a URL or set of URLs.  
 	 * 
-	 * @param objectURL
-	 * @param col This field filters the data to get only specific columns
-	 * 			  col = 0 fetches all the data
+	 * @param mixed <array|string> objectURL    if array passed batch request will be performed
+	 * @param array options
 	 * @return
 	 */
-	public function getUrlMetrics($objectURL, $col = 0)
+	public function getUrlMetrics($objectURL, array $options = array())
 	{
+		$urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/";
+		$postParams = "";
 		
-		$urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" . urlencode($objectURL) . "?" . $this->authenticator->getAuthenticationStr();
-		
-		if($col > 0)
-		{
-			$urlToFetch = $urlToFetch . "&Cols=" . $col;
+		// if passed more then 1 url - pass them through post
+		if (!is_array($objectURL)) {
+		    $urlToFetch .= urlencode($objectURL);
+		} else {
+		    $postParams = json_encode($objectURL);
 		}
-		$response = ConnectionUtil::makeRequest($urlToFetch);
+		
+		$urlToFetch .= "?" . $this->getAuthenticator()->getAuthenticationStr();
+        
+        /**
+         * @param col This field filters the data to get only specific columns
+         *  col = 0 fetches all the data
+         */
+        if (isset($options['cols']) && (int)$options['cols'] > 0) {
+            $urlToFetch .= "&Cols=" . $options['cols'];
+        }
+        var_dump($urlToFetch);
+		$response = ConnectionUtil::makeRequest($urlToFetch, $postParams);
 		
 		return $response;
-	}
-	
-	/**
-	 * @return the $authenticator
-	 */
-	public function getAuthenticator() {
-		return $this->authenticator;
-	}
-
-	/**
-	 * @param $authenticator the $authenticator to set
-	 */
-	public function setAuthenticator($authenticator) {
-		$this->authenticator = $authenticator;
-	}
-	
+	}	
 }
-
-?>
