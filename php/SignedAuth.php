@@ -1,6 +1,5 @@
 <?php
-# Signed Authentication has been deprecated.
-# Please check out the authentication wiki page: http://apiwiki.seomoz.org/HttpBasicAuth
+# Please check out the authentication wiki page: http://apiwiki.seomoz.org/w/page/29574176/SignedAuthentication
 $objectURL = "www.example.com/";
 $accessID = "my access id";
 $secretKey = "my secret key";
