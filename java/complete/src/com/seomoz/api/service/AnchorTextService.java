@@ -1,6 +1,7 @@
 package com.seomoz.api.service;
 
 import java.net.URLEncoder;
+import java.math.BigInteger;
 
 import com.seomoz.api.authentication.Authenticator;
 import com.seomoz.api.util.ConnectionUtil;
@@ -42,10 +43,11 @@ public class AnchorTextService
 	 * 
 	 * @see #getAnchorText(String, String, String, int, int, int)
 	 */
-	public String getAnchorText(String objectURL, String scope, String sort, long col)
+	public String getAnchorText(String objectURL, String scope, String sort, BigInteger col)
 	{
 		return getAnchorText(objectURL, scope, sort, col, -1, -1);
 	}
+	public String getAnchorText(String objectURL, String scope, String sort, long col) { return getAnchorText(objectURL, scope, sort, BigInteger.valueOf(col)); }
 	
 	/**
 	 * This method returns a set of anchor text terms of phrases aggregated across links to a page or domain.
@@ -65,7 +67,7 @@ public class AnchorTextService
 	 * @param limit The size of the page can by specified using the Limit parameter.
 	 * @return a set of anchor text terms of phrases aggregated across links to a page or domain.
 	 */
-	public String getAnchorText(String objectURL, String scope, String sort, long col, int offset, int limit)
+	public String getAnchorText(String objectURL, String scope, String sort, BigInteger col, int offset, int limit)
 	{
 		String urlToFetch = "http://lsapi.seomoz.com/linkscape/anchor-text/" + URLEncoder.encode(objectURL) + "?" + authenticator.getAuthenticationStr();
 		
@@ -77,7 +79,7 @@ public class AnchorTextService
 		{
 			urlToFetch = urlToFetch + "&Sort=" + sort;
 		}
-		if(col > 0)
+		if(col.signum() == 1)
 		{
 			urlToFetch = urlToFetch + "&Cols=" + col;
 		}
@@ -94,6 +96,7 @@ public class AnchorTextService
 		
 		return response;
 	}
+	public String getAnchorText(String objectURL, String scope, String sort, long col, int offset, int limit) { return getAnchorText(objectURL, scope, sort, BigInteger.valueOf(col), offset, limit); }
 
 	/**
 	 * @param authenticator the authenticator to set

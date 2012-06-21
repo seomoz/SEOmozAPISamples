@@ -1,6 +1,7 @@
 package com.seomoz.api.service;
 
 import java.net.URLEncoder;
+import java.math.BigInteger;
 
 import com.seomoz.api.authentication.Authenticator;
 import com.seomoz.api.util.ConnectionUtil;
@@ -42,12 +43,12 @@ public class URLMetricsService
 	 * 			  col = 0 fetches all the data
 	 * @return
 	 */
-	public String getUrlMetrics(String objectURL, long col)
+	public String getUrlMetrics(String objectURL, BigInteger col)
 	{
 		
 		String urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" + URLEncoder.encode(objectURL) + "?" + authenticator.getAuthenticationStr();
 		//System.out.println(urlToFetch);
-		if(col > 0)
+		if(col.signum() == 1)
 		{
 			urlToFetch = urlToFetch + "&Cols=" + col;
 		}
@@ -55,6 +56,7 @@ public class URLMetricsService
 		
 		return response;
 	}
+	public String getUrlMetrics(String objectURL, long col) { return getUrlMetrics(objectURL, BigInteger.valueOf(col)); }
 	
 	/**
 	 * 

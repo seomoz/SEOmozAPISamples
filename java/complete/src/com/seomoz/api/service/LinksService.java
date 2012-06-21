@@ -1,6 +1,7 @@
 package com.seomoz.api.service;
 
 import java.net.URLEncoder;
+import java.math.BigInteger;
 
 import com.seomoz.api.authentication.Authenticator;
 import com.seomoz.api.util.ConnectionUtil;
@@ -45,10 +46,11 @@ public class LinksService
 	 * 
 	 * @see #getLinks(String, String, String, String, int, int, int)
 	 */
-	public String getLinks(String objectURL, String scope, String filters, String sort, long col)
+	public String getLinks(String objectURL, String scope, String filters, String sort, BigInteger col)
 	{
 		return getLinks(objectURL, scope, filters, sort, col, -1, -1);
 	}
+	public String getLinks(String objectURL, String scope, String filters, String sort, long col) { return getLinks(objectURL, scope, filters, sort, BigInteger.valueOf(col)); }
 	
 	/**
 	 * This method returns a set of links to a page or domain.
@@ -62,7 +64,7 @@ public class LinksService
 	 * @param limit The size of the page can by specified using the Limit parameter.
 	 * @return
 	 */
-	public String getLinks(String objectURL, String scope, String filters, String sort, long col, int offset, int limit)
+	public String getLinks(String objectURL, String scope, String filters, String sort, BigInteger col, int offset, int limit)
 	{
 		String urlToFetch = "http://lsapi.seomoz.com/linkscape/links/" + URLEncoder.encode(objectURL) + "?" + authenticator.getAuthenticationStr();
 		
@@ -78,7 +80,7 @@ public class LinksService
 		{
 			urlToFetch = urlToFetch + "&Sort=" + sort;
 		}
-		if(col > 0)
+		if(col.signum() ==  1)
 		{
 			urlToFetch = urlToFetch + "&SourceCols=" + col;
 		}
@@ -95,6 +97,7 @@ public class LinksService
 		
 		return response;
 	}
+	public String getLinks(String objectURL, String scope, String filters, String sort, long col, int offset, int limit) { return getLinks(objectURL, scope, filters, sort, BigInteger.valueOf(col), offset, limit); }
 
 	/**
 	 * @param authenticator the authenticator to set

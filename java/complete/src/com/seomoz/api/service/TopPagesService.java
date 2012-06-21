@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 
 import com.seomoz.api.authentication.Authenticator;
 import com.seomoz.api.util.ConnectionUtil;
+import java.math.BigInteger;
 
 /**
  * Service class to call the various methods to
@@ -41,7 +42,7 @@ private Authenticator authenticator;
 	 * @param limit The size of the page can by specified using the Limit parameter. 
 	 * @return
 	 */
-	public String getTopPages(String objectURL, long col, int offset, int limit)
+	public String getTopPages(String objectURL, BigInteger col, int offset, int limit)
 	{
 		String urlToFetch = "http://lsapi.seomoz.com/linkscape/top-pages/" + URLEncoder.encode(objectURL) + "?" + authenticator.getAuthenticationStr();
 		if(offset >= 0 )
@@ -52,7 +53,7 @@ private Authenticator authenticator;
 		{
 			urlToFetch = urlToFetch + "&Limit=" + limit;
 		}
-		if(col > 0)
+		if(col.signum() == 1)
 		{
 			urlToFetch = urlToFetch + "&Cols=" + col;
 		}
@@ -62,6 +63,7 @@ private Authenticator authenticator;
 		
 		return response;
 	}
+	public String getTopPages(String objectURL, long col, int offset, int limit) { return getTopPages(objectURL, BigInteger.valueOf(col), offset, limit); }
 	
 	/**
 	 * 
@@ -71,10 +73,11 @@ private Authenticator authenticator;
 	 * 
 	 * @see #getTopPages(String, int, int, int)
 	 */
-	public String getTopPages(String objectURL, long col)
+	public String getTopPages(String objectURL, BigInteger col)
 	{
 		return getTopPages(objectURL, col, -1, -1);
 	}
+	public String getTopPages(String objectURL, long col) { return getTopPages(objectURL, BigInteger.valueOf(col)); }
 	
 	/**
 	 * 
