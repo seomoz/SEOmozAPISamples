@@ -16,27 +16,29 @@ $binarySignature = hash_hmac('sha1', $stringToSign, $secretKey, true);
 // We need to base64-encode it and then url-encode that.
 $urlSafeSignature = urlencode(base64_encode($binarySignature));
 
-// This is the URL that we want link metrics for.
-$objectURL = "www.example.com";
-
 // Add up all the bit flags you want returned.
 // Learn more here: http://apiwiki.seomoz.org/categories/api-reference
 $cols = "68719476736";
 
-// Now put your entire request together.
-// This example uses the Mozscape URL Metrics API.
-$requestUrl = "http://lsapi.seomoz.com/linkscape/url-metrics/".urlencode($objectURL)."?Cols=".$cols."&AccessID=".$accessID."&Expires=".$expires."&Signature=".$urlSafeSignature;
+// Put it all together and you get your request URL.
+$requestUrl = "http://lsapi.seomoz.com/linkscape/url-metrics/?Cols=".$cols."&AccessID=".$accessID."&Expires=".$expires."&Signature=".$urlSafeSignature;
+
+// Put your URLS into an array and json_encode them.
+$batchedDomains = array('www.seomoz.org', 'www.apple.com', 'www.pizza.com');
+$encodedDomains = json_encode($batchedDomains);
 
 // We can easily use Curl to send off our request.
+// Note that we send our encoded list of domains through curl's POSTFIELDS.
 $options = array(
-	CURLOPT_RETURNTRANSFER => true
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_POSTFIELDS     => $encodedDomains
 	);
 
 $ch = curl_init($requestUrl);
 curl_setopt_array($ch, $options);
 $content = curl_exec($ch);
-curl_close($ch);
+curl_close( $ch );
 
-print_r($content);
-
+$contents = json_decode($content);
+print_r($contents);
 ?>
