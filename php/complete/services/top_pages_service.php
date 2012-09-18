@@ -41,9 +41,30 @@ class TopPagesService extends AbstractService {
 		if ((isset($options['limit']) && (int)$options['limit'] > 0)) {
 			$urlToFetch .= "&Limit=" . $options['limit'];
 		}
-		
+
 		print_r($urlToFetch);
 		$response = ConnectionUtility::makeRequest($urlToFetch);
+
+		$i = $this->getAuthenticator()->getRateLimit();
+
+		// if request fails retry with exponential backoff
+		if (isset($response['http']) && $response['http'] != "200") {
+
+			do {
+				$i = $i + $i;
+
+				// output message (optional)
+    		echo "\n\nERROR: HTTP Response Code (" . $response['http'] . ")";
+				echo "\nWaiting $i seconds to retry";
+
+				sleep($i);
+				$response = ConnectionUtility::makeRequest($urlToFetch, $postParams);
+
+			} while ($response['http'] != "200");
+
+		}
+
+		unset($response['http']);
 
 		return $response;
 	}

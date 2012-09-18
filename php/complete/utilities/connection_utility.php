@@ -39,9 +39,13 @@ class ConnectionUtility {
 
 		$buffer = curl_exec($curl_handle);
 
+		$httpCode = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
+
 		curl_close($curl_handle);
 
-		$arr = json_decode($buffer);
+		$arr = json_decode($buffer, true);
+
+		$arr['http'] = $httpCode;
 
 		return $arr;
 	}

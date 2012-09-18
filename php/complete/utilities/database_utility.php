@@ -17,6 +17,11 @@ class dbConnector
 	private $database;
 
 	/**
+	 * table The table to use
+	 */
+	private $table;
+
+	/**
 	 * username The username to connect with
 	 */
 	private $username;
@@ -36,10 +41,10 @@ class dbConnector
 	 * @see #setSecretKey(String)
 	 * @see #setPassword(String)
 	 */
-    public function connectDB() {
-    	$mysqlConnect = mysql_connect($this -> hostname, $this -> username, $this -> password);
+	public function connectDB() {
+		$mysqlConnect = mysql_connect($this -> hostname, $this -> username, $this -> password);
 		@mysql_select_db($this -> database) or die( "Unable to select database");
-    }
+	}
 
 	/**
 	 *
@@ -48,9 +53,9 @@ class dbConnector
 	 * Assumes table has column named `url`
 	 */
 	public function getURLsFromDB() {
-    	$db_urls = mysql_query("SELECT * FROM " . $this -> table);
+		$db_urls = mysql_query("SELECT * FROM " . $this -> table);
 		return $db_urls;
-    }
+	}
 
 	/**
 	 *
@@ -61,22 +66,22 @@ class dbConnector
 	 * @see #setBatchSize(Integer)
 	 */
 	public function getBatchedURLs($db_urls) {
-    	$bulk_urls = array();
+		$bulk_urls = array();
 		while($row = mysql_fetch_array($db_urls)) {
-    		$bulk_urls[] = $row['url'];
+			$bulk_urls[] = $row['url'];
 		}
 		$batchedDomains = array_chunk($bulk_urls, $this -> batch_size, false);
 		return $batchedDomains;
-    }
+	}
 
 	/**
 	 *
 	 * This method closes the DB connection
 	 *
 	 */
-    public function closeDB() {
-    	mysql_close();
-    }
+	public function closeDB() {
+		mysql_close();
+	}
 
 	/**
 	 * @param $hostname the $hostname to set

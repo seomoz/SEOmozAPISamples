@@ -22,6 +22,12 @@ class Authenticator {
 	private $expiresInterval = 300;
 
 	/**
+	 * rateLimit The duration between when the requests are made
+	 * Default 10s
+	 */
+	private $rateLimit = 10;
+
+	/**
 	 *
 	 * This method calculates the authentication String based on the
 	 * user's credentials.
@@ -83,6 +89,20 @@ class Authenticator {
 	 */
 	public function getExpiresInterval() {
 		return $this->expiresInterval;
+	}
+
+	/**
+	 * @return the $rateLimit
+	 */
+	public function getRateLimit() {
+		return $this->rateLimit;
+	}
+
+	/**
+	 * @param $rateLimit the $rateLimit to set
+	 */
+	public function setRateLimit($rateLimit) {
+		$this->rateLimit = $rateLimit;
 	}
 
 	/**
