@@ -61,8 +61,11 @@ class LinksService extends AbstractService {
 		if (isset($options['limit']) && (int)$options['limit'] >= 0) {
 			$urlToFetch .= "&Limit=" . (int)$options['limit'];
 		}
-
-		return ConnectionUtility::makeRequest($urlToFetch);
+		
+		print_r($urlToFetch);
+		$response = ConnectionUtility::makeRequest($urlToFetch);
+		
+		return $response;
 	}
 
 }
