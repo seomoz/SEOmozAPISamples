@@ -8,7 +8,6 @@
 
 	define('ANCHOR_SORT_DOMAINS_LINKING_PAGE', 'domains_linking_page');
 
-	define('ANCHOR_COL_ALL', '0');
 	define('ANCHOR_COL_TERM_OR_PHRASE', '2');
 	define('ANCHOR_COL_INTERNAL_PAGES_LINK', '8');
 	define('ANCHOR_COL_INTERNAL_SUBDMNS_LINK', '16');
