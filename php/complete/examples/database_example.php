@@ -52,7 +52,10 @@
 
 	// Metrics to retrieve (url_metrics_constants.php)
 	$cols = URLMETRICS_COL_DEFAULT;
-
+	
+	// Set rate limit here
+	$rateLimit = 10;
+		
 	// Send batches to Mozscape API
 	$i = 0;
 	foreach ($batchedDomains as $objectURL) {
@@ -63,5 +66,7 @@
 
 		echo "\n\n";
 		print_r($response);
+		
+		sleep($rateLimit);
 	}
 ?>
