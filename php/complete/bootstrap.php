@@ -10,5 +10,6 @@
 	include_once __DIR__ . '/constants/top_pages_constants.php';
 	include_once __DIR__ . '/constants/url_metrics_constants.php';
 	include_once __DIR__ . '/utilities/connection_utility.php';
+	include_once __DIR__ . '/utilities/database_utility.php';
 
 ?>
