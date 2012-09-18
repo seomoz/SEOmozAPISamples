@@ -41,10 +41,11 @@ class TopPagesService extends AbstractService {
 		if ((isset($options['limit']) && (int)$options['limit'] > 0)) {
 			$urlToFetch .= "&Limit=" . $options['limit'];
 		}
-
+		
+		print_r($urlToFetch);
 		$response = ConnectionUtility::makeRequest($urlToFetch);
 
-	return $response;
+		return $response;
 	}
 
 }
