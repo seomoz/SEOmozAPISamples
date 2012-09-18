@@ -1,13 +1,13 @@
-<?php 
+<?php
 	define('ANCHOR_SCOPE_PHRASE_TO_PAGE','phrase_to_page');
 	define('ANCHOR_SCOPE_PHRASE_TO_SUBDOMAIN','phrase_to_subdomain');
 	define('ANCHOR_SCOPE_PHRASE_TO_DOMAIN','phrase_to_domain');
 	define('ANCHOR_SCOPE_TERM_TO_PAGE','term_to_page');
 	define('ANCHOR_SCOPE_TERM_TO_SUBDOMAIN','term_to_subdomain');
 	define('ANCHOR_SCOPE_TERM_TO_DOMAIN','term_to_domain');
-	
+
 	define('ANCHOR_SORT_DOMAINS_LINKING_PAGE', 'domains_linking_page');
-	
+
 	define('ANCHOR_COL_ALL', '0');
 	define('ANCHOR_COL_TERM_OR_PHRASE', '2');
 	define('ANCHOR_COL_INTERNAL_PAGES_LINK', '8');

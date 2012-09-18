@@ -1,57 +1,55 @@
 <?php
 /**
  * The authentication class which is used to generate the authentication string
- * 
- * @author Radeep Solutions 
+ *
+ * @author SEOmoz
  */
-class Authenticator 
-{
+class Authenticator {
 	/**
 	 * accessID The user's Access ID
 	 */
 	private $accessID;
-	
+
 	/**
-	 * secretKey The user's Secret Key 
+	 * secretKey The user's Secret Key
 	 */
 	private $secretKey;
-	
+
 	/**
 	 * expiresInterval The interval after which the authentication string expires
-	 * Default 300s 
+	 * Default 300s
 	 */
 	private $expiresInterval = 300;
-	
+
 	/**
-	 * 
-	 * This method calculates the authentication String based on the 
+	 *
+	 * This method calculates the authentication String based on the
 	 * user's credentials.
-	 * 
+	 *
 	 * Set the user credentials before calling this method
-	 * 
+	 *
 	 * @return the authentication string
-	 * 
+	 *
 	 * @see #setAccessID(String)
 	 * @see #setSecretKey(String)
 	 */
-    public function getAuthenticationStr()
-    {
-    	
-		$expires = time() + $this->expiresInterval;  
+	public function getAuthenticationStr() {
+
+		$expires = time() + $this->expiresInterval;
 
 		$stringToSign = $this->accessID."\n".$expires;
- 	
+
 		$binarySignature = hash_hmac('sha1', $stringToSign, $this->secretKey, true);
 
 		// We need to base64-encode it and then url-encode that.
 
 		$urlSafeSignature = urlencode(base64_encode($binarySignature));
-		
+
 		$authenticationStr = "AccessID=".$this->accessID."&Expires=".$expires."&Signature=".$urlSafeSignature;
 
 		return $authenticationStr;
-    }
-    
+	}
+
 	/**
 	 * @return the $accessID
 	 */
@@ -79,6 +77,7 @@ class Authenticator
 	public function setSecretKey($secretKey) {
 		$this->secretKey = $secretKey;
 	}
+
 	/**
 	 * @return the $expiresInterval
 	 */
@@ -92,6 +91,6 @@ class Authenticator
 	public function setExpiresInterval($expiresInterval) {
 		$this->expiresInterval = $expiresInterval;
 	}
-}
 
+}
 ?>

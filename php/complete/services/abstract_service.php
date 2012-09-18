@@ -3,18 +3,16 @@
  * abstract class for services
  *
  * @package Service
- * @author aur1mas <aur1mas@devnet.lt>
+ * @author SEOmoz
  */
-abstract class AbstractService
-{
-    
+abstract class AbstractService {
+
 	private $authenticator;
-	
-	public function __construct($authenticator)
-	{
-		$this->authenticator = $authenticator;		
+
+	public function __construct($authenticator) {
+		$this->authenticator = $authenticator;
 	}
-    
+
 	/**
 	 * @return the $authenticator
 	 */
@@ -28,4 +26,6 @@ abstract class AbstractService
 	public function setAuthenticator($authenticator) {
 		$this->authenticator = $authenticator;
 	}
+
 }
+?>

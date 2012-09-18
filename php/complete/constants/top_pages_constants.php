@@ -1,4 +1,4 @@
-<?php 
+<?php
 	define('TOPPAGES_COL_ALL', '0');
 	define('TOPPAGES_COL_TITLE', '1');
 	define('TOPPAGES_COL_URL', '4');

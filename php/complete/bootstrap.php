@@ -1,12 +1,14 @@
 <?php
 
-    include_once __DIR__ . '/authentication/Authenticator.php';
-	include_once __DIR__ . '/service/AnchorTextService.php';
-	include_once __DIR__ . '/service/URLMetricsService.php';
-	include_once __DIR__ . '/service/LinksService.php';
-	include_once __DIR__ . '/service/TopPagesService.php';
-	include_once __DIR__ . '/constants/AnchorTextConstants.php';
-	include_once __DIR__ . '/constants/LinksConstants.php';
-	include_once __DIR__ . '/constants/TopPagesConstants.php';
-	include_once __DIR__ . '/util/ConnectionUtil.php';
+	include_once __DIR__ . '/authentication/authenticator.php';
+	include_once __DIR__ . '/services/anchor_text_service.php';
+	include_once __DIR__ . '/services/url_metrics_service.php';
+	include_once __DIR__ . '/services/links_service.php';
+	include_once __DIR__ . '/services/top_pages_service.php';
+	include_once __DIR__ . '/constants/anchor_text_constants.php';
+	include_once __DIR__ . '/constants/links_constants.php';
+	include_once __DIR__ . '/constants/top_pages_constants.php';
+	include_once __DIR__ . '/constants/url_metrics_constants.php';
+	include_once __DIR__ . '/utilities/connection_utility.php';
 
+?>
