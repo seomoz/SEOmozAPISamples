@@ -50,5 +50,38 @@ class ConnectionUtility {
 		return $arr;
 	}
 
+	/**
+	 *
+	 * Method to make a GET HTTP connecton to
+	 * the given url and return the output
+	 *
+	 * Used specifically for metadata call
+	 *
+	 * @param urlToFetch url to be connected
+	 * @return the http get response
+	 */
+	public static function makeSimpleRequest($urlToFetch) {
+
+		$curl_handle = curl_init();
+
+		curl_setopt($curl_handle, CURLOPT_URL, "$urlToFetch");
+		curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, ConnectionUtility::CURL_CONNECTION_TIMEOUT);
+		curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+
+		/**
+		 * add additional params through post
+		 */
+		if (isset($postParams)) {
+			curl_setopt($curl_handle, CURLOPT_POST, true);
+			curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $postParams);
+		}
+
+		$buffer = curl_exec($curl_handle);
+
+		curl_close($curl_handle);
+
+		return $buffer;
+	}
+
 }
 ?>
