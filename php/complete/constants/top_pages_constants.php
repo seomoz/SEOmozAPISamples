@@ -1,5 +1,4 @@
 <?php
-	define('TOPPAGES_COL_ALL', '0');
 	define('TOPPAGES_COL_TITLE', '1');
 	define('TOPPAGES_COL_URL', '4');
 	define('TOPPAGES_COL_SUBDOMAIN', '8');
@@ -31,4 +30,9 @@
 	define('TOPPAGES_COL_ROOTDMN_LINKS_SUBDMN', '17179869184');
 	define('TOPPAGES_COL_PAGE_AUTHORITY', '34359738368');
 	define('TOPPAGES_COL_DOMAIN_AUTHORITY', '68719476736');
+
+	define('TOPPAGES_COL_ALL', '133982846973');
+
+	// URL, PageAuthority, DomainAuthority
+	define('TOPPAGES_COL_DEFAULT', '103079215108');
 ?>
