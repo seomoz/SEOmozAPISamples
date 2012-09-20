@@ -17,11 +17,11 @@ $binarySignature = hash_hmac('sha1', $stringToSign, $secretKey, true);
 $urlSafeSignature = urlencode(base64_encode($binarySignature));
 
 // This is the URL that we want link metrics for.
-$objectURL = "www.example.com";
+$objectURL = "www.seomoz.org";
 
 // Add up all the bit flags you want returned.
 // Learn more here: http://apiwiki.seomoz.org/categories/api-reference
-$cols = "68719476736";
+$cols = "103079215108";
 
 // Now put your entire request together.
 // This example uses the Mozscape URL Metrics API.
