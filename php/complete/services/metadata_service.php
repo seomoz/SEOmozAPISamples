@@ -29,8 +29,6 @@ class MetadataService extends AbstractService {
 
 		$urlToFetch .= "?" . $this->getAuthenticator()->getAuthenticationStr();
 
-		print_r($urlToFetch);
-
 		$response = ConnectionUtility::makeSimpleRequest($urlToFetch);
 
 		return $response;

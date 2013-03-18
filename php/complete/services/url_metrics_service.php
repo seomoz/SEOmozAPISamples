@@ -34,8 +34,6 @@ class URLMetricsService extends AbstractService {
 		$urlToFetch .= "?" . $this->getAuthenticator()->getAuthenticationStr();
 		$urlToFetch .= "&Cols=" . $cols;
 
-		print_r($urlToFetch);
-
 		$response = ConnectionUtility::makeRequest($urlToFetch, $postParams);
 
 		$i = $this->getAuthenticator()->getRateLimit();

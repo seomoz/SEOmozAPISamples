@@ -63,7 +63,6 @@ class AnchorTextService extends AbstractService {
 			$urlToFetch .= "&Limit=" . $options['limit'];
 		}
 
-		print_r($urlToFetch);
 		$response = ConnectionUtility::makeRequest($urlToFetch);
 
 		$i = $this->getAuthenticator()->getRateLimit();

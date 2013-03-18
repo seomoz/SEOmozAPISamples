@@ -62,7 +62,6 @@ class LinksService extends AbstractService {
 			$urlToFetch .= "&Limit=" . (int)$options['limit'];
 		}
 
-		print_r($urlToFetch);
 		$response = ConnectionUtility::makeRequest($urlToFetch);
 
 		$i = $this->getAuthenticator()->getRateLimit();
