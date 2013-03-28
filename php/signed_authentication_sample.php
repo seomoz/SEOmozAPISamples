@@ -1,10 +1,9 @@
 <?php
-// you can obtain you access id and secret key here: http://www.seomoz.org/api/keys
+// Obtain your access id and secret key here: http://www.seomoz.org/api/keys
 $accessID = "ACCESS_ID_HERE";
 $secretKey = "SECRET_KEY_HERE";
 
-// Set your expires for several minutes into the future.
-// Values excessively far in the future will not be honored by the Mozscape API.
+// Set your expires for five minutes into the future.
 $expires = time() + 300;
 
 // A new linefeed is necessary between your AccessID and Expires.
