@@ -21,7 +21,7 @@ binary_signature = OpenSSL::HMAC.digest('sha1', SECRET_KEY, string_to_sign)
 URL_SAFE_SIGNATURE = CGI::escape(Base64.encode64(binary_signature).chomp)
 
 # This is the URL that we want metrics for.
-object_url = 'www.seomoz.org'
+object_url = 'www.moz.com'
 
 # Add up all the bit flags you want returned.
 # Learn more here: http://apiwiki.moz.com/query-parameters/
