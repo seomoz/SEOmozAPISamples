@@ -3,7 +3,7 @@ require 'base64'
 require 'cgi'
 require 'open-uri'
 
-# You can obtain you access id and secret key here: http://www.seomoz.org/api/keys
+# You can obtain you access id and secret key here: http://moz.com/products/api/keys
 ACCESS_ID	= "ACCESS_ID_HERE"
 SECRET_KEY	= "SECRET_KEY_HERE"
 
@@ -24,7 +24,7 @@ URL_SAFE_SIGNATURE = CGI::escape(Base64.encode64(binary_signature).chomp)
 object_url = 'www.seomoz.org'
 
 # Add up all the bit flags you want returned.
-# Learn more here: http://apiwiki.seomoz.org/categories/api-reference
+# Learn more here: http://apiwiki.moz.com/query-parameters/
 cols = '103079215108'
 
 # Now put your entire request together.
