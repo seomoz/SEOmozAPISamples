@@ -17,6 +17,7 @@
 	define('LINKS_FILTER_FOLLOW', 'follow');
 	define('LINKS_FILTER_301', '301');
 
+	define('LINKS_COL_URL', 0);
 	define('LINKS_COL_FLAGS', 2);
 	define('LINKS_COL_ANCHOR_TEXT', 4);
 	define('LINKS_COL_NRML_ANCHOR_TEXT', 8);
