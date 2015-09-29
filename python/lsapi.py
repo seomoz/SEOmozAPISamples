@@ -26,84 +26,163 @@ class lsapi:
 	class UMCols:
 		'''UrlMetric columns'''
 		# Flags for urlMetrics
-		# Title of page if available
+		# Title of page, if available
+		# Free? Yes
+		# Response code: 	ut	
 		title      				= 1
 		# Canonical form of the url
+		# Free? Yes
+		# Response code: 	uu	
 		url        				= 4
 		# The subdomain of the url
+		# Free? No
+		# Response code: 	ufq	
 		subdomain  				= 8
 		# The root domain of the url
+		# Free? No
+		# Response code: 	upl	
 		rootDomain 				= 16
-		# The number of juice-passing external links to the url
+		# The number of external quity links to the url
+		# Free? Yes
+		# Response code: 	ueid
 		externalLinks 			= 32
 		# The number of juice-passing external links to the subdomain
+		# Free? No
+		# Response code: 	feid
 		subdomainExternalLinks 	= 64
 		# The number of juice-passing external links
+		# Free? No
+		# Response code: 	peid
 		rootDomainExternalLinks = 128
-		# The number of juice-passing links (internal or external) to the url
+		# The number of equity (juice-passing) links (internal or external) to the url
+		# Free? No
+		# Response code: 	ujid
 		juicePassingLinks 		= 256
 		# The number of subdomains with any pages linking to the url
+		# Free? No
+		# Response code: 	uifq
 		subdomainsLinking 		= 512
 		# The number of root domains with any pages linking to the url
+		# Free? No
+		# Response code:	uipl
 		rootDomainsLinking 		= 1024
 		# The number of links (juice-passing or not, internal or external) to the url
+		# Free? yes
+		# Response code:	uid
 		links 					= 2048
 		# The number of subdomains with any pages linking to the subdomain of the url
+		# Free? No
+		# Response code:	fid
 		subdomainSubdomainsLinking = 4096
 		# The number of root domains with any pages linking to the root domain of the url
+		# Free? No
+		# Response code:	pid
 		rootDomainRootDomainsLinking = 8192
 		# The mozRank of the url.  Requesting this metric will provide both the 
 		# pretty 10-point score (in umrp) and the raw score (umrr)
+		# Free? Yes
+		# Response codes: 	umrp, umrr
 		mozRank 				= 16384
 		# The mozRank of the subdomain of the url. Requesting this metric will
-		#provide both the pretty 10-point score (fmrp) and the raw score (fmrr)
+		# provide both the pretty 10-point score (fmrp) and the raw score (fmrr)
+		# Free? Yes
+		# Response codes: 	fmrp, fmrr
 		subdomainMozRank 		= 32768
 		# The mozRank of the Root Domain of the url. Requesting this metric will
 		# provide both the pretty 10-point score (pmrp) and the raw score (pmrr) 
+		# Free? No
+		# Response code:	pmrp, pmrr
 		rootDomainMozRank 		= 65536
 		# The mozTrust of the url. Requesting this metric will provide both the
 		# pretty 10-point score (utrp) and the raw score (utrr).
+		# Free? No
+		# Response code:	utrp, utrr
 		mozTrust 				= 131072
 		# The mozTrust of the subdomain of the url.  Requesting this metric will
 		# provide both the pretty 10-point score (ftrp) and the raw score (ftrr)
+		# Free? No
+		# Response code:	ftrp, ftrr
 		subdomainMozTrust 		= 262144
 		# The mozTrust of the root domain of the url.  Requesting this metric
 		# will provide both the pretty 10-point score (ptrp) and the raw score (ptrr)
+		# Free? No
+		# Response codes:	ptrp, ptrr
 		rootDomainMozTrust 		= 524288
 		# The portion of the url's mozRank coming from external links.  Requesting
 		# this metric will provide both the pretty 10-point score (uemrp) and the raw
 		# score (uemrr)
+		# Free? No
+		# Response codes: uemrp, uemrr
 		externalMozRank 		= 1048576
 		# The portion of the mozRank of all pages on the subdomain coming from
 		# external links.  Requesting this metric will provide both the pretty
 		# 10-point score (fejp) and the raw score (fejr)
+		# Free? No
+		# Response codes: fejp, fejr
 		subdomainExternalDomainJuice = 2097152 
 		# The portion of the mozRank of all pages on the root domain coming from
 		# external links.  Requesting this metric will provide both the pretty
 		# 10-point score (pejp) and the raw score (pejr)
+		# Free? No
+		# Response code: pejp, pejr
 		rootDomainExternalDomainJuice = 4194304
 		# The mozRank of all pages on the subdomain combined.  Requesting this
 		# metric will provide both the pretty 10-point score (fjp) and the raw score (fjr)
+		# Free? No
+		# Response codes: 	fjp, fjr
 		subdomainDomainJuice 	= 8388608
 		# The mozRank of all pages on the root domain combined.  Requesting this
 		# metric will provide both the pretty 10-point score (pjp) and the raw score (pjr)
+		# Free? No
+		# Response codes: 	pjp, pjr
 		rootDomainDomainJuice 	= 16777216
+		# Returns six different columns related to the Spam Score(TM) metric:
+		# - Spam score for the page's subdomain (fspsc)
+    		# - Bit field of triggered spam flags (fspf)
+		# - Language of the subdomain (flan)
+		# - HTTP status code of the spam crawl (fsps)
+		# - Epoch time when the subdomain was last crawled (fsplc)
+		# - List of pages used for the subdomain's spam crawl (fspp)
+		# Free? No
+		# Response codes: 	fspsc, fspf, flan, fsps, fsplc, fspp 
+		subdomainSpamScore	= 67108864
+		# Returns social contact information found on the target entity:
+		# - Facebook account (ffb)
+		# - Twitter handle (ftw)
+		# - Google+ account (fg+)
+		# - Email address (fem)*
+		# * Emails in the Contacts column are collected automatically, and are not CAN-SPAM compliant - they cannot be used in outbound mail campaigns. 	no
+		# Free? No
+		# Response codes: 	ffb, ftw, fg+, fem* 	
+		social		= 134217728		
 		# The HTTP status code recorded by Linkscape for this URL (if available)
+		# Free? Yes
+		# Response code:	us
 		httpStatusCode 			= 536870912
 		# Total links (including internal and nofollow links) to the subdomain of
 		# the url in question
+		# Free? No
+		# Response code:	fuid
 		linksToSubdomain 		= 4294967296
 		# Total links (including internal and nofollow links) to the root domain
 		# of the url in question.
+		# Free? No
+		# Response code:	puid
 		linksToRootDomain 		= 8589934592
 		# The number of root domains with at least one link to the subdomain of
 		# the url in question
+		# Free? No
+		# Response code:	fipl
 		rootDomainsLinkingToSubdomain = 17179869184
 		# A score out of 100-points representing the likelihood for arbitrary content
-		# to rank on this page
+		# to rank on this page.
+		# Free? Yes
+		# Response code: 	upa
 		pageAuthority 			= 34359738368
 		# A score out of 100-points representing the likelihood for arbitrary content
-		# to rank on this domain
+		# to rank on this domain.
+		# Free? Yes
+		# Response code:	pda
 		domainAuthority 		= 68719476736
 		# The number of external links to the URL, including nofollowed links. 
 		# Free? No
