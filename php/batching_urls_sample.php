@@ -1,23 +1,23 @@
 <?php
-// you can obtain you access id and secret key here: https://moz.com/products/api/keys
+// Get your access id and secret key here: https://moz.com/products/api/keys
 $accessID = "ACCESS_ID_HERE";
 $secretKey = "SECRET_KEY_HERE";
 
-// Set your expires for several minutes into the future.
-// Values excessively far in the future will not be honored by the Mozscape API.
+// Set your expire times for several minutes into the future.
+// An expire time excessively far in the future will not be honored by the Mozscape API.
 $expires = time() + 300;
 
-// A new linefeed is necessary between your AccessID and Expires.
+// Put each parameter on a new line.
 $stringToSign = $accessID."\n".$expires;
 
 // Get the "raw" or binary output of the hmac hash.
 $binarySignature = hash_hmac('sha1', $stringToSign, $secretKey, true);
 
-// We need to base64-encode it and then url-encode that.
+// Base64-encode it and then url-encode that.
 $urlSafeSignature = urlencode(base64_encode($binarySignature));
 
 // Add up all the bit flags you want returned.
-// Learn more here: http://apiwiki.moz.com/url-metrics
+// Learn more here: https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics
 $cols = "68719476736";
 
 // Put it all together and you get your request URL.
@@ -27,8 +27,8 @@ $requestUrl = "http://lsapi.seomoz.com/linkscape/url-metrics/?Cols=".$cols."&Acc
 $batchedDomains = array('www.moz.com', 'www.apple.com', 'www.pizza.com');
 $encodedDomains = json_encode($batchedDomains);
 
-// We can easily use Curl to send off our request.
-// Note that we send our encoded list of domains through curl's POSTFIELDS.
+// Use Curl to send off our request.
+// Send your encoded list of domains through Curl's POSTFIELDS.
 $options = array(
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_POSTFIELDS     => $encodedDomains
