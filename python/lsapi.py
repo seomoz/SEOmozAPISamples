@@ -105,6 +105,28 @@ class lsapi:
 		# A score out of 100-points representing the likelihood for arbitrary content
 		# to rank on this domain
 		domainAuthority 		= 68719476736
+		# The number of external links to the URL, including nofollowed links. 
+		# Free? No
+		# Response code: 	ued
+		externalLinks 		= 549755813888 
+		# The number of external links to the subdomain, including nofollowed links.
+		# Free? No
+		# Response code:  	fed 	
+		externalLinksToSubdomain 		= 140737488355328
+		# The number of external links to the root domain, including nofollowed links.
+		# Free? No
+		# Response code:  	ped 	
+		externalLinksToRootDomain 		= 2251799813685248
+		# The number of links from the same C class IP addresses. 
+		# Free? No
+		# Response code:  	pib 	
+		linkingCBlocks 		= 36028797018963968
+		# The time and date on which Mozscape last crawled the URL, 
+		# returned in Unix epoch format. (http://www.epochconverter.com/)
+		# Free? yes
+		# Response code: 	ulc 	
+		timeLastCrawled		= 144115188075855872 
+		
 		
 		# This is the set of all free fields
 		freeCols = (title |
@@ -115,7 +137,8 @@ class lsapi:
 			subdomainMozRank |
 			httpStatusCode |
 			pageAuthority |
-			domainAuthority)
+			domainAuthority |
+			timeLastCrawled)
 	
 	class ATCols:
 		'''Anchor Text Cols'''
