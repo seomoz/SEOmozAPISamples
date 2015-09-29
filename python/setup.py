@@ -29,7 +29,7 @@ except ImportError:
 setup(
 	name             = 'lsapi',
 	version          = '0.1.0',
-	description      = 'SEOmoz Linkscape API Bindings for Python',
+	description      = 'Mozscape API Bindings for Python',
 	author_email     = 'dan@seomoz.org',
 	url              = 'http://github.com/seomoz/SEOmozAPISamples',
 	py_modules       = ['lsapi'],
