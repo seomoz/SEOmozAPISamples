@@ -1,8 +1,8 @@
-Python Linkscape API
+Python Mozscape API
 ====================
 
-For more information on the Linkscape API in general, please consult the
-[wiki](http://www.seomoz.org/api/index/)
+For more information on the Mozscape API in general, please consult the
+[Mozscape API Help](https://moz.com/help/guides/moz-api)
 
 General
 -------
@@ -12,49 +12,45 @@ then can be used to make API calls:
 
 	from lsapi import lsapi
 	l = lsapi('my_access_id', 'my_secret_key')
-	# Now I can make me some API calls!
+	# Now I can make API calls!
 
 All calls in this class return the deserialized json objects that the API
 returns. Typically these are either dictionaries, or lists of dictionaries.
-For the meaning of each of the resultant keys, consult the documentation.
-
-The columns you can request are a bitmask, with constants provided in classes
-in the lsapi class. For example, the columns for URL Metrics and Anchor Text
-API calls are in `lsapi.UMCols` and `lsapi.ATCols` respectively.
+For the meaning of each of the resultant keys, and the bit flags for the columns you can request, consult the [Help](https://moz.com/help/guides/moz-api).
 
 URL Metrics
 -----------
 
-The first API call exposed is [URL Metrics](http://apiwiki.seomoz.org/w/page/13991153/URL%20Metrics%20API).
+The first API call exposed is [URL Metrics](https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics).
 It can provide summary information on a single (via a GET) or multiple (via a POST) url or urls.
 
-	# Let's get some urlmetrics. Results are now an array of dictionaries
+	# Let's get some URL metrics. Results are now an array of dictionaries
 	# the i'th dictionary is the results for the i'th URL
-	metrics = l.urlMetrics(['www.seomoz.org', 'www.seomoz.org/blog'])
+	metrics = l.urlMetrics(['www.moz.com', 'www.moz.com'])
 	# Now let's say we only want specific columns in the results
-	authorities = l.urlMetrics(['www.seomoz.org'], lsapi.UMCols.domainAuthority | lsapi.UMCols.pageAuthority)
+	authorities = l.urlMetrics(['www.moz.com'], lsapi.UMCols.domainAuthority | lsapi.UMCols.pageAuthority)
 	# Or if you just need results for one URL
-	mozMetrics = l.urlMetrics('www.seomoz.org')
+	mozMetrics = l.urlMetrics('www.moz.com')
 
 Anchor Text
 -----------
 
-Next exposed is the [Anchor Text](http://apiwiki.seomoz.org/w/page/13991127/Anchor%20Text%20API)
+Next exposed is the [Anchor Text](https://moz.com/help/guides/moz-api/mozscape/api-reference/anchor-text-metrics)
 call, which returns a set of anchor text terms of phrases aggregated across links to a page or domain.
 	
 	# Now for some anchor text results
-	anchorResults = l.anchorText('www.seomoz.org/blog')
+	anchorResults = l.anchorText('www.moz.com/blog')
 	# Or for just specific columns
-	anchorTermResults = l.anchorText('www.seomoz.org/blog', cols=lsapi.ATCols.term)
+	anchorTermResults = l.anchorText('www.moz.com/blog', cols=lsapi.ATCols.term)
 
 Links
 -----
 
-Lastly, we have the [Links](http://apiwiki.seomoz.org/w/page/13991141/Links%20API) call, which
+Lastly, we have the [Links](https://moz.com/help/guides/moz-api/mozscape/api-reference/link-metrics) call, which
 returns a set of links to a page or domain.
 	
 	# Now for some links results
-	links = l.links('www.seomoz.org')
+	links = l.links('www.moz.com')
 	# The links API has more columns to specify, as well as sort, scope, etc.
-	links = l.links('www.seomoz.org', scope='domain_to_domain', sort='domain_authority',
+	links = l.links('wwww.moz.com', scope='domain_to_domain', sort='domain_authority',
 		filters=['external', 'nofollow'], targetCols = lsapi.UMCols.url)
