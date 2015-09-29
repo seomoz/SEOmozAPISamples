@@ -27,7 +27,7 @@ $requestUrl = "http://lsapi.seomoz.com/linkscape/url-metrics/?Cols=".$cols."&Acc
 $batchedDomains = array('www.moz.com', 'www.apple.com', 'www.pizza.com');
 $encodedDomains = json_encode($batchedDomains);
 
-// Use Curl to send off our request.
+// Use Curl to send off your request.
 // Send your encoded list of domains through Curl's POSTFIELDS.
 $options = array(
 	CURLOPT_RETURNTRANSFER => true,
