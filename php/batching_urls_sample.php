@@ -3,8 +3,8 @@
 $accessID = "ACCESS_ID_HERE";
 $secretKey = "SECRET_KEY_HERE";
 
-// Set your expire times for several minutes into the future.
-// An expire time excessively far in the future will not be honored by the Mozscape API.
+// Set your expires times for several minutes into the future.
+// An expires time excessively far in the future will not be honored by the Mozscape API.
 $expires = time() + 300;
 
 // Put each parameter on a new line.
