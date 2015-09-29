@@ -24,7 +24,7 @@ class lsapi:
 	'''An object that is tied to your id/key pair, and can make requests on your behalf'''
 	
 	class UMCols:
-		'''UrlMetric colums'''
+		'''UrlMetric columns'''
 		# Flags for urlMetrics
 		# Title of page if available
 		title      				= 1
@@ -103,7 +103,7 @@ class lsapi:
 		# to rank on this page
 		pageAuthority 			= 34359738368
 		# A score out of 100-points representing the likelihood for arbitrary content
-		# to rank on this dom
+		# to rank on this domain
 		domainAuthority 		= 68719476736
 		
 		# This is the set of all free fields
