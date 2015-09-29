@@ -1,32 +1,33 @@
 <?php
-// Obtain your access id and secret key here: http://www.seomoz.org/api/keys
+// Get your access id and secret key here: https://moz.com/products/api/keys
 $accessID = "ACCESS_ID_HERE";
 $secretKey = "SECRET_KEY_HERE";
 
-// Set your expires for five minutes into the future.
+// Set your expires times for several minutes into the future.
+// An expires time excessively far in the future will not be honored by the Mozscape API.
 $expires = time() + 300;
 
-// A new linefeed is necessary between your AccessID and Expires.
+// Put each parameter on a new line.
 $stringToSign = $accessID."\n".$expires;
 
 // Get the "raw" or binary output of the hmac hash.
 $binarySignature = hash_hmac('sha1', $stringToSign, $secretKey, true);
 
-// We need to base64-encode it and then url-encode that.
+// Base64-encode it and then url-encode that.
 $urlSafeSignature = urlencode(base64_encode($binarySignature));
 
-// This is the URL that we want link metrics for.
+// Specify the URL that you want link metrics for.
 $objectURL = "www.seomoz.org";
 
 // Add up all the bit flags you want returned.
-// Learn more here: http://apiwiki.seomoz.org/categories/api-reference
+// Learn more here: https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics
 $cols = "103079215108";
 
-// Now put your entire request together.
+// Put it all together and you get your request URL.
 // This example uses the Mozscape URL Metrics API.
 $requestUrl = "http://lsapi.seomoz.com/linkscape/url-metrics/".urlencode($objectURL)."?Cols=".$cols."&AccessID=".$accessID."&Expires=".$expires."&Signature=".$urlSafeSignature;
 
-// We can easily use Curl to send off our request.
+// Use Curl to send off your request.
 $options = array(
 	CURLOPT_RETURNTRANSFER => true
 	);
