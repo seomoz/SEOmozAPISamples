@@ -14,15 +14,19 @@ then can be used to make API calls:
 	l = lsapi('my_access_id', 'my_secret_key')
 	# Now I can make API calls!
 
-All calls in this class return the deserialized json objects that the API
-returns. Typically these are either dictionaries, or lists of dictionaries.
-For the meaning of each of the resultant keys, and the bit flags for the columns you can request, consult the [Help](https://moz.com/help/guides/moz-api).
+All calls in this class return the deserialized json objects that the
+API returns. Typically these are either dictionaries, or lists of
+dictionaries.  For the meaning of each of the resultant keys, and the
+bit flags for the columns you can request, consult the
+[Help](https://moz.com/help/guides/moz-api).
 
 URL Metrics
 -----------
 
-The first API call exposed is [URL Metrics](https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics).
-It can provide summary information on a single (via a GET) or multiple (via a POST) url or urls.
+The first API call exposed is
+[URL Metrics](https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics).
+It can provide summary information on a single (via a GET) or multiple
+(via a POST) url or urls.
 
 	# Let's get some URL metrics. Results are now an array of dictionaries
 	# the i'th dictionary is the results for the i'th URL
@@ -35,9 +39,11 @@ It can provide summary information on a single (via a GET) or multiple (via a PO
 Anchor Text
 -----------
 
-Next exposed is the [Anchor Text](https://moz.com/help/guides/moz-api/mozscape/api-reference/anchor-text-metrics)
-call, which returns a set of anchor text terms of phrases aggregated across links to a page or domain.
-	
+Next exposed is the
+[Anchor Text](https://moz.com/help/guides/moz-api/mozscape/api-reference/anchor-text-metrics)
+call, which returns a set of anchor text terms of phrases aggregated
+across links to a page or domain.
+
 	# Now for some anchor text results
 	anchorResults = l.anchorText('www.moz.com/blog')
 	# Or for just specific columns
@@ -46,9 +52,10 @@ call, which returns a set of anchor text terms of phrases aggregated across link
 Links
 -----
 
-Lastly, we have the [Links](https://moz.com/help/guides/moz-api/mozscape/api-reference/link-metrics) call, which
-returns a set of links to a page or domain.
-	
+Lastly, we have the
+[Links](https://moz.com/help/guides/moz-api/mozscape/api-reference/link-metrics)
+call, which returns a set of links to a page or domain.
+
 	# Now for some links results
 	links = l.links('www.moz.com')
 	# The links API has more columns to specify, as well as sort, scope, etc.
