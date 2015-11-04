@@ -22,26 +22,26 @@ class lsapiException(Exception):
 
 class lsapi:
 	'''An object that is tied to your id/key pair, and can make requests on your behalf'''
-	
+
 	class UMCols:
 		'''UrlMetric columns'''
 		# Flags for urlMetrics
 		#
 		# Title of page, if available.
 		# Free? Yes
-		# Response code: 	ut	
+		# Response code: 	ut
 		title      				= 1
 		# Canonical form of the url.
 		# Free? Yes
-		# Response code: 	uu	
+		# Response code: 	uu
 		url        				= 4
 		# The subdomain of the url.
 		# Free? No
-		# Response code: 	ufq	
+		# Response code: 	ufq
 		subdomain  				= 8
 		# The root domain of the url.
 		# Free? No
-		# Response code: 	upl	
+		# Response code: 	upl
 		rootDomain 				= 16
 		# The number of external quity links to the url.
 		# Free? Yes
@@ -79,7 +79,7 @@ class lsapi:
 		# Free? No
 		# Response code:	pid
 		rootDomainRootDomainsLinking = 8192
-		# The mozRank of the url.  Requesting this metric will provide both the 
+		# The mozRank of the url.  Requesting this metric will provide both the
 		# pretty 10-point score (in umrp) and the raw score (umrr).
 		# Free? Yes
 		# Response codes: 	umrp, umrr
@@ -90,7 +90,7 @@ class lsapi:
 		# Response codes: 	fmrp, fmrr
 		subdomainMozRank 		= 32768
 		# The mozRank of the Root Domain of the url. Requesting this metric will
-		# provide both the pretty 10-point score (pmrp) and the raw score (pmrr). 
+		# provide both the pretty 10-point score (pmrp) and the raw score (pmrr).
 		# Free? No
 		# Response code:	pmrp, pmrr
 		rootDomainMozRank 		= 65536
@@ -120,7 +120,7 @@ class lsapi:
 		# 10-point score (fejp) and the raw score (fejr).
 		# Free? No
 		# Response codes: 	fejp, fejr
-		subdomainExternalDomainJuice = 2097152 
+		subdomainExternalDomainJuice = 2097152
 		# The portion of the mozRank of all pages on the root domain coming from
 		# external links.  Requesting this metric will provide both the pretty
 		# 10-point score (pejp) and the raw score (pejr).
@@ -145,18 +145,18 @@ class lsapi:
 		# - Epoch time when the subdomain was last crawled (fsplc)
 		# - List of pages used for the subdomain's spam crawl (fspp).
 		# Free? No
-		# Response codes: 	fspsc, fspf, flan, fsps, fsplc, fspp 
+		# Response codes: 	fspsc, fspf, flan, fsps, fsplc, fspp
 		subdomainSpamScore	= 67108864
 		# Returns social contact information found on the target entity:
 		# - Facebook account (ffb)
 		# - Twitter handle (ftw)
 		# - Google+ account (fg+)
 		# - Email address (fem)*
-		# * Emails in the Contacts column are collected automatically, and 
+		# * Emails in the Contacts column are collected automatically, and
 		# are not CAN-SPAM compliant - they cannot be used in outbound mail campaigns.
 		# Free? No
-		# Response codes: 	ffb, ftw, fg+, fem* 	
-		social		= 134217728		
+		# Response codes: 	ffb, ftw, fg+, fem*
+		social		= 134217728
 		# The HTTP status code recorded by Linkscape for this URL (if available).
 		# Free? Yes
 		# Response code:	us
@@ -186,29 +186,29 @@ class lsapi:
 		# Free? Yes
 		# Response code:	pda
 		domainAuthority 		= 68719476736
-		# The number of external links to the URL, including nofollowed links. 
+		# The number of external links to the URL, including nofollowed links.
 		# Free? No
 		# Response code: 	ued
-		externalLinks 		= 549755813888 
+		externalLinks 		= 549755813888
 		# The number of external links to the subdomain, including nofollowed links.
 		# Free? No
-		# Response code:  	fed 	
+		# Response code:  	fed
 		externalLinksToSubdomain 		= 140737488355328
 		# The number of external links to the root domain, including nofollowed links.
 		# Free? No
-		# Response code:  	ped 	
+		# Response code:  	ped
 		externalLinksToRootDomain 		= 2251799813685248
-		# The number of links from the same C class IP addresses. 
+		# The number of links from the same C class IP addresses.
 		# Free? No
-		# Response code:  	pib 	
+		# Response code:  	pib
 		linkingCBlocks 		= 36028797018963968
-		# The time and date on which Mozscape last crawled the URL, 
+		# The time and date on which Mozscape last crawled the URL,
 		# returned in Unix epoch format. (http://www.epochconverter.com/)
 		# Free? Yes
-		# Response code: 	ulc 	
-		timeLastCrawled		= 144115188075855872 
-		
-		
+		# Response code: 	ulc
+		timeLastCrawled		= 144115188075855872
+
+
 		# This is the set of all free fields
 		freeCols = (title |
 			url |
@@ -220,7 +220,7 @@ class lsapi:
 			pageAuthority |
 			domainAuthority |
 			timeLastCrawled)
-	
+
 	class ATCols:
 		'''Anchor Text Cols'''
 		# The anchor text term or phrase
@@ -241,7 +241,7 @@ class lsapi:
 		externalMozRankPassed 	= 512
 		# Currently only "1" is used to indicate the term or phrase is found in an image link
 		flags 					= 1024
-		
+
 		# This is the set of all free fields
 		freeCols = (term |
 			internalPagesLinking |
@@ -252,14 +252,14 @@ class lsapi:
 			internalMozRankPassed |
 			externalMozRankPassed |
 			flags)
-	
+
 	# The base url we request from
 	base = 'http://lsapi.seomoz.com/linkscape/%s?%s'
-	
+
 	def __init__(self, access_id, secret_key):
 		self.access_id  = access_id
 		self.secret_key = secret_key
-	
+
 	def signature(self, expires):
 		toSign  = '%s\n%i' % (self.access_id, expires)
 		return base64.b64encode(hmac.new(self.secret_key, toSign, hashlib.sha1).digest())
@@ -280,16 +280,16 @@ class lsapi:
 				raise lsapiException(e)
 		except Exception as e:
 			raise lsapiException(e)
-	
+
 	def urlMetrics(self, urls, cols=UMCols.freeCols):
 		if isinstance(urls, basestring):
 			return self.query('url-metrics/%s' % urllib.quote(urls), Cols=cols)
 		else:
 			return self.query('url-metrics', data=json.dumps(urls), Cols=cols)
-	
+
 	def anchorText(self, url, scope='phrase_to_page', sort='domains_linking_page', cols=ATCols.freeCols):
 		return self.query('anchor-text/%s' % urllib.quote(url), Scope=scope, Sort=sort, Cols=cols)
-	
+
 	def links(self, url, scope='page_to_page', sort='page_authority', filters=['internal'],
 		targetCols=(UMCols.url | UMCols.pageAuthority),
 		sourceCols=(UMCols.url | UMCols.pageAuthority),
