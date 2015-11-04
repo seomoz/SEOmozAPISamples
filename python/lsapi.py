@@ -253,6 +253,13 @@ class lsapi:
 			externalMozRankPassed |
 			flags)
 
+        class LinkCols:
+                '''Link Cols'''
+                flags = 2
+                anchorText = 4
+                normalizedAnchorText = 8
+                mozRankPassed = 16
+
 	# The base url we request from
 	base = 'http://lsapi.seomoz.com/linkscape/%s?%s'
 
@@ -293,7 +300,7 @@ class lsapi:
 	def links(self, url, scope='page_to_page', sort='page_authority', filters=['internal'],
 		targetCols=(UMCols.url | UMCols.pageAuthority),
 		sourceCols=(UMCols.url | UMCols.pageAuthority),
-		linkCols  =(UMCols.url | UMCols.pageAuthority)):
+		linkCols  =0):
 		'''This is currently broken. Have not figured it out'''
 		return self.query('links/%s' % urllib.quote(url),
 			Scope      = scope,
@@ -301,4 +308,4 @@ class lsapi:
 			Filter     = '+'.join(filters),
 			TargetCols = targetCols,
 			SourceCols = sourceCols,
-			linkCols   = linkCols)
+			LinkCols   = linkCols)
