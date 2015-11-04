@@ -26,4 +26,4 @@ anchorTermResults = l.anchorText('www.moz.com/blog', cols=lsapi.ATCols.term)
 links = l.links('www.moz.com')
 # The links API has more columns to specify, as well as sort, scope, etc.
 links = l.links('www.moz.com', scope='domain_to_domain', sort='domain_authority',
-	filters=['external', 'nofollow'], targetCols = lsapi.UMCols.url)
+	filters=['external', 'nofollow'], targetCols=lsapi.UMCols.url)
