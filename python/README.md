@@ -1,7 +1,7 @@
 Python Mozscape API
 ====================
 
-For more information on the Mozscape API in general, please consult the
+Python 3 support(not tested for anchor text). For more information on the Mozscape API in general, please consult the
 [Mozscape API Help](https://moz.com/help/guides/moz-api)
 
 General
