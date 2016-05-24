@@ -46,7 +46,7 @@ class lsapi:
         # The number of external quity links to the url.
         # Free? Yes
         # Response code:  ueid
-        externalLinks                 = 32
+        equityExternalLinks           = 32
         # The number of juice-passing external links to the subdomain.
         # Free? No
         # Response code:  feid
@@ -212,7 +212,7 @@ class lsapi:
         # This is the set of all free fields
         freeCols = (title |
             url |
-            externalLinks |
+            equityExternalLinks |
             links |
             mozRank |
             subdomainMozRank |
