@@ -1,3 +1,4 @@
+import codecs
 import hashlib
 import hmac
 import time
@@ -303,7 +304,8 @@ class lsapi:
         params['Signature'] = self.signature(expires)
         request = lsapi.base % (method, urlencode(params))
         try:
-            return json.loads(urlopen(request, data).read())
+            reader = codecs.getreader('utf-8')
+            return json.load(reader(urlopen(request, data)))
         except HTTPError as e:
             # The unauthorized status code can sometimes have meaningful data
             if e.code == 401:
