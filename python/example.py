@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from lsapi import Mozscape
+from mozscape import Mozscape
 
 client = Mozscape(
     'my-access-id',

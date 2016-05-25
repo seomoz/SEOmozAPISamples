@@ -12,7 +12,7 @@ General
 The Mozscape class is initialized with your access id and your secret key, and
 then can be used to make API calls:
 
-	from lsapi import Mozscape
+	from mozscape import Mozscape
 	client = Mozscape('my_access_id', 'my_secret_key')
 	# Now I can make API calls!
 
