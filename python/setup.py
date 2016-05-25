@@ -27,15 +27,15 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-    name             = 'mozscape',
-    version          = '0.1.1',
-    description      = 'Mozscape API Bindings for Python',
-    author_email     = 'dan@moz.com',
-    url              = 'http://github.com/seomoz/SEOmozAPISamples',
-    py_modules       = ['mozscape'],
-    license          = 'MIT',
-    platforms        = 'Posix; MacOS X',
-    classifiers      = [
+    name='mozscape',
+    version='0.1.1',
+    description='Mozscape API Bindings for Python',
+    author_email='dan@moz.com',
+    url='http://github.com/seomoz/SEOmozAPISamples',
+    py_modules=['mozscape'],
+    license='MIT',
+    platforms='Posix; MacOS X',
+    classifiers=[
         'License :: OSI Approved :: MIT License',
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
