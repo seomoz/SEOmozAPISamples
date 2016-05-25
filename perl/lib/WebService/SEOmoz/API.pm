@@ -21,11 +21,11 @@ use vars qw/$errstr/;
         secretKey  => $secretKey,
         expiresInterval => $expiresInterval, # optional, default 300s
     ) or die "Can't init the seomoz instance: " . $WebService::SEOmoz::API::errstr;
-    
+
     my $t = $seomoz->getUrlMetrics( {
         objectURL => 'www.seomoz.org/blog',
     } ) or die $seomoz->errstr;
-    
+
     $t = $seomoz->getLinks( {
         objectURL => 'www.google.com',
         Scope => 'page_to_page',
@@ -73,13 +73,13 @@ sub new {
 
     $args->{accessID}  or do { $errstr = 'accessID is required';  return; };
     $args->{secretKey} or do { $errstr = 'secretKey is required'; return; };
-    
+
     $args->{expiresInterval} ||= 300;
-    
+
     # we won't have space before/after accessID/secretKey
     $args->{accessID} =~ s/(^\s+|\s+$)//g;
     $args->{secretKey} =~ s/(^\s+|\s+$)//g;
-    
+
     unless ( $args->{ua} ) {
         my $ua_args = delete $args->{ua_args} || { timeout => 120 };
         $args->{ua} = LWP::UserAgent->new(%$ua_args);
@@ -95,7 +95,7 @@ sub errstr { $errstr }
 
 sub getAuthenticationStr {
     my ($self) = @_;
-    
+
     my $expires = time() + $self->{expiresInterval};
     my $stringToSign = $self->{accessID} . "\n" . $expires;
 
@@ -112,11 +112,11 @@ sub getAuthenticationStr {
 
 sub makeRequest {
     my ($self, $url) = @_;
-    
+
 #    print STDERR "# get $url\n";
 
     undef $errstr;
-    
+
     my $resp = $self->{ua}->get($url);
     unless ($resp->is_success) {
         $errstr = $resp->status_line;
@@ -141,10 +141,10 @@ L<http://apiwiki.seomoz.org/w/page/13991153/URL-Metrics-API>
 sub getUrlMetrics {
     my $self = shift;
     my $args = scalar @_ % 2 ? shift : { @_ };
-    
+
     my $objectURL = $args->{objectURL} or do { $errstr = 'objectURL is required'; return; };
     my $urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
-    
+
     foreach my $k ('Cols') {
         if (defined $args->{$k}) {
 			$urlToFetch .= "&" . "$k=" . $args->{$k};
@@ -175,10 +175,10 @@ L<http://apiwiki.seomoz.org/w/page/13991141/Links-API>
 sub getLinks {
     my $self = shift;
     my $args = scalar @_ % 2 ? shift : { @_ };
-    
+
     my $objectURL = $args->{objectURL} or do { $errstr = 'objectURL is required'; return; };
     my $urlToFetch = "http://lsapi.seomoz.com/linkscape/links/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
-    
+
     foreach my $k ('Scope', 'Filter', 'Sort', 'SourceCols', 'TargetCols', 'LinkCols', 'Offset', 'Limit') {
         if (defined $args->{$k}) {
 			$urlToFetch .= "&" . "$k=" . $args->{$k};
@@ -208,10 +208,10 @@ L<http://apiwiki.seomoz.org/w/page/13991127/Anchor-Text-API>
 sub getAnchorText {
     my $self = shift;
     my $args = scalar @_ % 2 ? shift : { @_ };
-    
+
     my $objectURL = $args->{objectURL} or do { $errstr = 'objectURL is required'; return; };
     my $urlToFetch = "http://lsapi.seomoz.com/linkscape/anchor-text/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
-    
+
     foreach my $k ('Scope', 'Sort', 'Cols', 'Offset', 'Limit') {
         if (defined $args->{$k}) {
 			$urlToFetch .= "&" . "$k=" . $args->{$k};
