@@ -2,7 +2,9 @@ Python Mozscape API
 ====================
 
 For more information on the Mozscape API in general, please consult the
-[Mozscape API Help](https://moz.com/help/guides/moz-api)
+[Mozscape API Help](https://moz.com/help/guides/moz-api).
+
+The current module supports both Python 2 and 3.
 
 General
 -------
