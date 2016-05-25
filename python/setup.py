@@ -22,23 +22,23 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 try:
-	from setuptools import setup
+    from setuptools import setup
 except ImportError:
-	from distutils.core import setup
+    from distutils.core import setup
 
 setup(
-	name             = 'mozscape',
-	version          = '0.1.1',
-	description      = 'Mozscape API Bindings for Python',
-	author_email     = 'dan@moz.com',
-	url              = 'http://github.com/seomoz/SEOmozAPISamples',
-	py_modules       = ['mozscape'],
-	license          = 'MIT',
-	platforms        = 'Posix; MacOS X',
-	classifiers      = [
-		'License :: OSI Approved :: MIT License',
-		'Development Status :: 3 - Alpha',
-		'Environment :: Web Environment',
-		'Intended Audience :: Developers',
-		'Topic :: Internet :: WWW/HTTP'],
+    name             = 'mozscape',
+    version          = '0.1.1',
+    description      = 'Mozscape API Bindings for Python',
+    author_email     = 'dan@moz.com',
+    url              = 'http://github.com/seomoz/SEOmozAPISamples',
+    py_modules       = ['mozscape'],
+    license          = 'MIT',
+    platforms        = 'Posix; MacOS X',
+    classifiers      = [
+        'License :: OSI Approved :: MIT License',
+        'Development Status :: 3 - Alpha',
+        'Environment :: Web Environment',
+        'Intended Audience :: Developers',
+        'Topic :: Internet :: WWW/HTTP'],
 )
