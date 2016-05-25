@@ -1,4 +1,7 @@
-Revision history for Perl extension WebService-SEOmoz-API
+Revision history for Perl extension WebService-Mozscape-API
+
+0.03    2016.05.25
+        Rename WebService-SEOmoz-API to WebService-Mozscape-API
 
 0.02    2011.03.20
         errstr when request HTTP error

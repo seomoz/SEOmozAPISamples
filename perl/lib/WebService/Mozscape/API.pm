@@ -1,6 +1,6 @@
-package WebService::SEOmoz::API;
+package WebService::Mozscape::API;
 
-# ABSTRACT: SEOmoz API
+# ABSTRACT: Mozscape API
 
 use strict;
 use warnings;
@@ -14,34 +14,34 @@ use vars qw/$errstr/;
 
 =head1 SYNOPSIS
 
-    use WebService::SEOmoz::API;
+    use WebService::Mozscape::API;
 
-    my $seomoz = WebService::SEOmoz::API->new(
+    my $mozscape = WebService::Mozscape::API->new(
         accessID   => $accessID,
         secretKey  => $secretKey,
         expiresInterval => $expiresInterval, # optional, default 300s
-    ) or die "Can't init the seomoz instance: " . $WebService::SEOmoz::API::errstr;
+    ) or die "Can't init the mozscape instance: " . $WebService::Mozscape::API::errstr;
 
-    my $t = $seomoz->getUrlMetrics( {
-        objectURL => 'www.seomoz.org/blog',
-    } ) or die $seomoz->errstr;
+    my $t = $mozscape->getUrlMetrics( {
+        objectURL => 'moz.com/blog',
+    } ) or die $mozscape->errstr;
 
-    $t = $seomoz->getLinks( {
+    $t = $mozscape->getLinks( {
         objectURL => 'www.google.com',
         Scope => 'page_to_page',
         Sort  => 'page_authority',
         Limit => 1,
-    } ) or die $seomoz->errstr;
+    } ) or die $mozscape->errstr;
 
 =head1 DESCRIPTION
 
-L<http://www.seomoz.org/api>
+L<https://moz.com/products/api>
 
 =head2 METHODS
 
 =head3 CONSTRUCTION
 
-    my $seomoz = WebService::SEOmoz::API->new(
+    my $mozscape = WebService::Mozscape::API->new(
         accessID   => $accessID,
         secretKey  => $secretKey,
         expiresInterval => $expiresInterval, # optional, default 300s
@@ -53,7 +53,7 @@ L<http://www.seomoz.org/api>
 
 =item * secretKey
 
-get them from http://www.seomoz.org/api/ after signup
+get them from https://moz.com/products/api/keys after signup
 
 =item * ua_args
 
@@ -130,11 +130,11 @@ sub makeRequest {
 
 =head3 getUrlMetrics
 
-    my $t = $seomoz->getUrlMetrics( {
-        objectURL => 'www.seomoz.org/blog',
+    my $t = $mozscape->getUrlMetrics( {
+        objectURL => 'moz.com/blog',
     } );
 
-L<http://apiwiki.seomoz.org/w/page/13991153/URL-Metrics-API>
+L<https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics>
 
 =cut
 
@@ -143,11 +143,11 @@ sub getUrlMetrics {
     my $args = scalar @_ % 2 ? shift : { @_ };
 
     my $objectURL = $args->{objectURL} or do { $errstr = 'objectURL is required'; return; };
-    my $urlToFetch = "http://lsapi.seomoz.com/linkscape/url-metrics/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
+    my $urlToFetch = 'http://lsapi.seomoz.com/linkscape/url-metrics/' . uri_escape($objectURL) . '?' . $self->getAuthenticationStr();
 
     foreach my $k ('Cols') {
         if (defined $args->{$k}) {
-			$urlToFetch .= "&" . "$k=" . $args->{$k};
+			$urlToFetch .= '&' . "$k=" . $args->{$k};
 		}
     }
 
@@ -158,7 +158,7 @@ sub getUrlMetrics {
 
 =head3 getLinks
 
-    my $t = $seomoz->getLinks( {
+    my $t = $mozscape->getLinks( {
         objectURL => 'www.google.com',
         Scope => 'page_to_page',
         Filter => 'internal 301',
@@ -168,7 +168,7 @@ sub getUrlMetrics {
         Limit => 1,
     } );
 
-L<http://apiwiki.seomoz.org/w/page/13991141/Links-API>
+L<https://moz.com/help/guides/moz-api/mozscape/api-reference/link-metrics>
 
 =cut
 
@@ -177,11 +177,11 @@ sub getLinks {
     my $args = scalar @_ % 2 ? shift : { @_ };
 
     my $objectURL = $args->{objectURL} or do { $errstr = 'objectURL is required'; return; };
-    my $urlToFetch = "http://lsapi.seomoz.com/linkscape/links/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
+    my $urlToFetch = 'http://lsapi.seomoz.com/linkscape/links/' . uri_escape($objectURL) . '?' . $self->getAuthenticationStr();
 
     foreach my $k ('Scope', 'Filter', 'Sort', 'SourceCols', 'TargetCols', 'LinkCols', 'Offset', 'Limit') {
         if (defined $args->{$k}) {
-			$urlToFetch .= "&" . "$k=" . $args->{$k};
+			$urlToFetch .= '&' . "$k=" . $args->{$k};
 		}
     }
 
@@ -192,7 +192,7 @@ sub getLinks {
 
 =head3 getAnchorText
 
-    my $t = $seomoz->getAnchorText( {
+    my $t = $mozscape->getAnchorText( {
         objectURL => 'www.google.com',
         Scope => 'page_to_page',
         Sort => 'page_authority',
@@ -201,7 +201,7 @@ sub getLinks {
         Limit => 1,
     } );
 
-L<http://apiwiki.seomoz.org/w/page/13991127/Anchor-Text-API>
+L<https://moz.com/help/guides/moz-api/mozscape/api-reference/anchor-text-metrics>
 
 =cut
 
@@ -210,11 +210,11 @@ sub getAnchorText {
     my $args = scalar @_ % 2 ? shift : { @_ };
 
     my $objectURL = $args->{objectURL} or do { $errstr = 'objectURL is required'; return; };
-    my $urlToFetch = "http://lsapi.seomoz.com/linkscape/anchor-text/" . uri_escape($objectURL) . "?" . $self->getAuthenticationStr();
+    my $urlToFetch = 'http://lsapi.seomoz.com/linkscape/anchor-text/' . uri_escape($objectURL) . '?' . $self->getAuthenticationStr();
 
     foreach my $k ('Scope', 'Sort', 'Cols', 'Offset', 'Limit') {
         if (defined $args->{$k}) {
-			$urlToFetch .= "&" . "$k=" . $args->{$k};
+			$urlToFetch .= '&' . "$k=" . $args->{$k};
 		}
     }
 
