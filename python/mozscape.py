@@ -33,7 +33,7 @@ except:
     import json
 
 
-class lsapiException(Exception):
+class MozscapeError(StandardError):
     """A wrapper so that we can catch our own errors"""
 
     def __init__(self, value):
@@ -46,7 +46,7 @@ class lsapiException(Exception):
         return repr(self.value)
 
 
-class lsapi:
+class Mozscape:
     """An object that is tied to your id/key pair and can make requests on
     your behalf."""
 
@@ -331,18 +331,18 @@ class lsapi:
         params['AccessID'] = self.access_id
         params['Expires'] = expires
         params['Signature'] = self.signature(expires)
-        request = lsapi.base % (method, urlencode(params))
+        request = Mozscape.base % (method, urlencode(params))
         try:
             reader = codecs.getreader('utf-8')
             return json.load(reader(urlopen(request, data)))
         except HTTPError as e:
             # The unauthorized status code can sometimes have meaningful data
             if e.code == 401:
-                raise lsapiException(e.read())
+                raise MozscapeError(e.read())
             else:
-                raise lsapiException(e)
-        except Exception as e:
-            raise lsapiException(e)
+                raise MozscapeError(e)
+        except StandardError as e:
+            raise MozscapeError(e)
 
     def urlMetrics(self, urls, cols=UMCols.freeCols):
         try:
