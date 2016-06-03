@@ -6,6 +6,14 @@ For more information on the Mozscape API in general, please consult the
 
 The current module supports both Python 2 and 3.
 
+Installation instructions
+-------------------------
+```sh
+git clone https://github.com/seomoz/SEOmozAPISamples.git
+cd SEOmozAPISamples/python
+pip install . # or alternatively python setup.py install
+```
+
 General
 -------
 
