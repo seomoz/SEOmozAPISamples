@@ -21,7 +21,7 @@ authorities = client.urlMetrics(
 # Or if you just need results for one URL
 mozMetrics = client.urlMetrics('www.moz.com')
 
-# Now for some anchor text results
+# Now for some anchor text results. Not available on the Free API
 anchorResults = client.anchorText('www.moz.com/blog')
 # Or for just specific columns
 anchorTermResults = client.anchorText(
