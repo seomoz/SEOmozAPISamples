@@ -4,6 +4,7 @@ import hmac
 import time
 import base64
 
+
 try:
     # For Python 3.0 and later
     from urllib.parse import urlencode, quote
@@ -33,7 +34,7 @@ except:
     import json
 
 
-class MozscapeError(StandardError):
+class MozscapeError(Exception):
     """A wrapper so that we can catch our own errors"""
 
     def __init__(self, value):
@@ -341,7 +342,7 @@ class Mozscape:
                 raise MozscapeError(e.read())
             else:
                 raise MozscapeError(e)
-        except StandardError as e:
+        except Exception as e:
             raise MozscapeError(e)
 
     def urlMetrics(self, urls, cols=UMCols.freeCols):
