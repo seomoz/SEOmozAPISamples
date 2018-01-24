@@ -14,6 +14,13 @@ cd SEOmozAPISamples/python
 pip install . # or alternatively python setup.py install
 ```
 
+Alternatively, you can install directly from GitHub using this
+invocation:
+
+```
+pip install git+https://github.com/seomoz/SEOmozAPISamples.git#egg=mozscape&subdirectory=python
+```
+
 General
 -------
 
