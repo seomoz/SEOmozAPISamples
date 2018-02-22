@@ -368,11 +368,14 @@ class Mozscape:
 
     def links(
             self, url, scope='page_to_page', sort='page_authority',
-            filters=['internal'],
+            filters=None,
             targetCols=(UMCols.url | UMCols.pageAuthority),
             sourceCols=(UMCols.url | UMCols.pageAuthority),
-            linkCols=0):
-        """This is currently broken. Have not figured it out"""
+            linkCols=0,
+            limit=25,
+            offset=0):
+        if not filters:
+            filters = []
         return self.query(
             'links/%s' % quote(url),
             Scope=scope,
@@ -380,4 +383,6 @@ class Mozscape:
             Filter='+'.join(filters),
             TargetCols=targetCols,
             SourceCols=sourceCols,
-            LinkCols=linkCols)
+            LinkCols=linkCols,
+            Limit=limit,
+            Offset=offset)
