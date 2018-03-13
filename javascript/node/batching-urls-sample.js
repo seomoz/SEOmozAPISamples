@@ -14,9 +14,9 @@ var accessId = process.env.accessId;
 var secretKey = process.env.secretKey;
 
 // `bitFlagExampleValues` is a list of bitFlag values as strings that we'll
-// loop over and sum together using helper function: `getBigMozDictionary`
+// loop over and sum together using helper function: `sumColumnValues`
 var bitFlagExampleValues = ['144115188075855872', '68719476736', '34359738368'];
-var getBigMozDictionary = function(bitFlagValues) {
+var sumColumnValues = function(bitFlagValues) {
   return bitFlagValues.reduce(function (accu, bitFlag) {
     var accuValBig = new bigJs(accu);
     var bitFlagBig = new bigJs(bitFlag);
@@ -29,7 +29,7 @@ var getBigMozDictionary = function(bitFlagValues) {
 // 'cols' is the sum of the bit flags representing each field you want returned.
 // Learn more here: https://moz.com/help/guides/moz-api/mozscape/api-reference/url-metrics
 // returns "144115291155070976"
-var cols = getBigMozDictionary(bitFlagExampleValues);
+var cols = sumColumnValues(bitFlagExampleValues);
 
 // Put each parameter on a new line.
 var stringToSign = accessId + "\n" + expires;
